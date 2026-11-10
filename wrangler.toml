@@ -9,7 +9,7 @@ compatibility_date = "2025-09-01"
 SONG_PRICE_USD = "0.99"
 BRONZE_PRICE_USD = "4.99"
 HAT_PRICE_USD = "19.00"
-TEE_PRICE_USD = "15.50"
+TEE_PRICE_USD = "14.00"
 SHIPPING_USD = "5.99"      # flat US shipping for the hat and tee; "0" shows "Free US shipping"
 
 # Comma-separated patron names to hide from the Patrons page (e.g. "Test Name, Someone").
