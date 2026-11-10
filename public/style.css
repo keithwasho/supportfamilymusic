@@ -143,7 +143,7 @@ h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
 .thumbs button.on { border-color: var(--coral); }
 .thumbs img { width: 100%; height: 100%; object-fit: cover; }
 .form-error { color: #b3261e; font-weight: 600; text-align: center; min-height: 1.5em; margin-top: 18px; }
-.ship-note { text-align: center; color: var(--ink-soft); font-size: 0.95rem; margin-top: 8px; }
+.section-head .ship-note, .ship-note { text-align: center; color: var(--tan); font-size: 0.9rem; font-weight: 600; margin: 12px auto 0; }
 
 /* Plain pages */
 .page { padding: 60px 0 90px; }
