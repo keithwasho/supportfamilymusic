@@ -48,8 +48,8 @@
       var product = btn.getAttribute("data-buy");
       var body = { product: product };
       if (err) err.textContent = "";
-      if (product === "tee") {
-        var sel = document.getElementById("tee-size");
+      var sel = document.getElementById(product + "-size");
+      if (sel) {
         if (!sel.value) { sel.focus(); if (err) err.textContent = "Please choose a tee size."; return; }
         body.size = sel.value;
       }
@@ -64,7 +64,7 @@
       }).catch(function (e) {
         btn.disabled = false;
         if (err) err.textContent = e.message || "Could not start checkout. Please try again.";
-        if (err && product !== "tee") err.scrollIntoView({ behavior: "smooth", block: "center" });
+        if (err && !document.getElementById(product + "-size")) err.scrollIntoView({ behavior: "smooth", block: "center" });
       });
     });
   });
