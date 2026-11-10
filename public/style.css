@@ -198,7 +198,8 @@ h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
 .more p { margin: 6px 0; }
 
 /* Shop and patron tiers */
-.cards.cards-3 { grid-template-columns: repeat(3, 1fr); max-width: 980px; margin-inline: auto; }
+@media (min-width: 981px) { .cards.cards-3 { grid-template-columns: repeat(3, 1fr); } }
+.cards.cards-3 { max-width: 980px; margin-inline: auto; }
 .tiers-head { margin-top: 80px; }
 .tier .badge { left: auto; right: 12px; letter-spacing: 0.12em; }
 .tier.bronze .badge { background: #a8693a; }
@@ -223,6 +224,31 @@ h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
 .song-body .by-line { margin: 0 0 12px; color: #b9b2a5; font-size: 0.95rem; flex: 1; }
 
 /* Charity pledge */
-.giving { background: #fff; border-left: 4px solid var(--coral); padding: 12px 16px; border-radius: 10px; box-shadow: var(--shadow); }
-.giving-pill { display: inline-block; margin-top: 6px; padding: 8px 16px; border-radius: 999px; background: var(--sand); color: var(--ink); font-weight: 700; font-size: 0.95rem; }
+/* Giving callout under the patron tiers */
+.giving-callout {
+  position: relative; max-width: 640px; margin: 44px auto 18px; padding: 34px 28px 28px;
+  text-align: center; border-radius: 22px;
+  background: linear-gradient(180deg, #fffaf0 0%, var(--cream-deep) 100%);
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+}
+.giving-callout::before, .giving-callout::after {
+  content: ""; position: absolute; top: 50%; width: 46px; height: 1px; background: var(--tan); opacity: .5;
+}
+.giving-callout::before { left: -62px; }
+.giving-callout::after { right: -62px; }
+.giving-icon {
+  position: absolute; top: -24px; left: 50%; transform: translateX(-50%);
+  display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
+  background: var(--coral); color: #fff; box-shadow: 0 6px 16px rgba(217, 111, 71, .35); border: 3px solid var(--cream);
+}
+.giving-icon svg { width: 22px; height: 22px; }
+.giving-eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--tan); }
+.giving-text { margin: 0; font-family: var(--display); font-size: 1.35rem; line-height: 1.4; color: var(--ink); }
+.giving-text strong { color: var(--coral-dark); font-weight: 700; }
+.giving-org { display: block; }
+.giving-pct { font-size: 1.9rem; font-weight: 800; color: var(--coral-dark); vertical-align: -0.08em; }
+@media (max-width: 760px) {
+  .giving-callout::before, .giving-callout::after { display: none; }
+  .giving-text { font-size: 1.15rem; }
+}
 .site-footer small { color: #b9b2a5; }
