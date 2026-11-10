@@ -1,6 +1,6 @@
 import { products, cents, json, siteUrl, stripe, stripeKeyProblem } from "../../lib/shop.js";
 
-// Starts a Stripe Checkout for one item: song, bronze, hat or tee.
+// Starts a Stripe Checkout for one item: song, bronze, silver, gold, hat or tee.
 export async function onRequestPost({ request, env }) {
   const body = await request.json().catch(() => ({}));
   const all = products(env);

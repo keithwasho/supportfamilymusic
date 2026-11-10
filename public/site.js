@@ -29,6 +29,15 @@
       '?autoplay=1&rel=0" title="You\'re My Son" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
   });
 
+  // More songs: each video loads from YouTube only when clicked.
+  document.querySelectorAll("[data-yt]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (b.querySelector("iframe")) return;
+      b.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + b.getAttribute("data-yt") +
+        '?autoplay=1&rel=0" title="' + b.getAttribute("aria-label").replace("Play ", "") + '" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    });
+  });
+
   // Product photo galleries.
   document.querySelectorAll("[data-gallery]").forEach(function (card) {
     var main = card.querySelector("[data-main]");
@@ -48,8 +57,8 @@
       var product = btn.getAttribute("data-buy");
       var body = { product: product };
       if (err) err.textContent = "";
-      if (product === "tee") {
-        var sel = document.getElementById("tee-size");
+      var sel = document.getElementById(product + "-size");
+      if (sel) {
         if (!sel.value) { sel.focus(); if (err) err.textContent = "Please choose a tee size."; return; }
         body.size = sel.value;
       }
@@ -64,7 +73,7 @@
       }).catch(function (e) {
         btn.disabled = false;
         if (err) err.textContent = e.message || "Could not start checkout. Please try again.";
-        if (err && product !== "tee") err.scrollIntoView({ behavior: "smooth", block: "center" });
+        if (err && !document.getElementById(product + "-size")) err.scrollIntoView({ behavior: "smooth", block: "center" });
       });
     });
   });

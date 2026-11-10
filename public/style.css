@@ -1,14 +1,18 @@
 :root {
-  --ink: #3f3e38;        /* warm charcoal (from the original palette #504F48) */
-  --ink-soft: #6b6a62;
-  --cream: #fdf6ea;
-  --sand: #fad8a3;       /* original secondary */
-  --tan: #cb986a;        /* original text accent */
+  /* "My Son Palette" from the original design: 504F48, 4F4E4F, CB986A, FAD8A3, FAD092, F9A380, F8EACC, BBAD99 */
+  --ink: #504f48;
+  --ink-soft: #6e6c63;
+  --cream: #fbf4e4;      /* lightened F8EACC for the page background */
+  --cream-deep: #f8eacc;
+  --sand: #fad8a3;
+  --gold: #fad092;
+  --tan: #cb986a;
+  --taupe: #bbad99;
   --coral: #f08a62;      /* original accent #F9A380, deepened for contrast */
   --coral-dark: #d96f47;
   --night: #1f1d1b;
   --card: #ffffff;
-  --line: #eadfcd;
+  --line: #e6dac4;
   --radius: 16px;
   --shadow: 0 10px 30px rgba(63, 62, 56, 0.12);
   --display: "Wix Madefor Display", "Segoe UI", system-ui, sans-serif;
@@ -40,7 +44,7 @@ h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
 }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; }
 .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--ink); font-family: var(--display); }
-.brand img { width: 56px; height: 56px; border-radius: 50%; box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--sand), 0 6px 16px rgba(63,62,56,0.18); transition: transform 0.2s; }
+.brand img { width: 56px; height: 56px; border-radius: 50%; background: #fff; object-fit: contain; padding: 5px; box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--sand), 0 6px 16px rgba(63,62,56,0.18); transition: transform 0.2s; }
 .brand:hover img { transform: rotate(-6deg) scale(1.04); }
 .brand-text { display: flex; flex-direction: column; line-height: 1.05; }
 .brand-name { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.01em; background: linear-gradient(90deg, var(--ink) 0%, #6b4a33 55%, var(--coral-dark) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -159,7 +163,8 @@ h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
 .site-footer a:hover { text-decoration: underline; }
 
 @media (max-width: 980px) {
-  .cards { grid-template-columns: repeat(2, 1fr); }
+  .cards, .cards.cards-3 { grid-template-columns: repeat(2, 1fr); }
+  .song-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 760px) {
   body { font-size: 16px; }
@@ -169,7 +174,8 @@ h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
   .why, .support { padding: 64px 0; }
 }
 @media (max-width: 520px) {
-  .cards { grid-template-columns: 1fr; }
+  .cards, .cards.cards-3 { grid-template-columns: 1fr; }
+  .song-grid { grid-template-columns: 1fr; }
   .brand { gap: 10px; }
   .brand img { width: 44px; height: 44px; }
   .brand-name { font-size: 1.2rem; }
@@ -177,6 +183,44 @@ h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
   .wordmark { gap: 10px; }
   .panel { padding: 22px; }
 }
+
+/* Original design details */
+.support { background: var(--cream-deep); }
+.why { background: var(--cream); }
+.includes { display: flex; gap: 8px; }
+.includes img { width: 58px; height: 75px; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); box-shadow: 0 2px 6px rgba(80,79,72,0.12); }
+.more { font-size: 0.9rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 8px; }
+.more summary { cursor: pointer; font-weight: 700; color: var(--tan); list-style: none; }
+.more summary::-webkit-details-marker { display: none; }
+.more summary::after { content: " +"; }
+.more[open] summary::after { content: " –"; }
+.more ul { padding-left: 18px; margin: 6px 0; }
+.more p { margin: 6px 0; }
+
+/* Shop and patron tiers */
+.cards.cards-3 { grid-template-columns: repeat(3, 1fr); max-width: 980px; margin-inline: auto; }
+.tiers-head { margin-top: 80px; }
+.tier .badge { left: auto; right: 12px; letter-spacing: 0.12em; }
+.tier.bronze .badge { background: #a8693a; }
+.tier.silver .badge { background: #8e9196; }
+.tier.gold .badge { background: #c9a227; }
+.tier.gold { border: 2px solid var(--gold); box-shadow: 0 14px 36px rgba(201,162,39,0.22); }
+.tier select { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: #fff; }
+.patron-tier { margin-top: 26px; }
+.patron-tier h2 { font-size: 1.25rem; }
+
+/* More songs */
+.more-songs { background: var(--night); color: #fff; padding: 90px 0; }
+.more-songs .section-head p { color: #d9d3c7; }
+.more-songs .eyebrow { color: var(--sand); }
+.song-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.song-card { background: #2a2724; border: 1px solid #3a3632; border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+.video.small { border-radius: 0; box-shadow: none; width: 100%; background-color: #000; background-size: cover; background-position: center; }
+.video.small .play { width: 64px; height: 64px; }
+.video.small .play::after { border-left-width: 20px; border-top-width: 12px; border-bottom-width: 12px; margin-left: 5px; }
+.song-body { padding: 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.song-body h3 { font-size: 1.35rem; margin: 0; color: var(--sand); }
+.song-body .by-line { margin: 0 0 12px; color: #b9b2a5; font-size: 0.95rem; flex: 1; }
 
 /* Charity pledge */
 .giving { background: #fff; border-left: 4px solid var(--coral); padding: 12px 16px; border-radius: 10px; box-shadow: var(--shadow); }

@@ -4,9 +4,9 @@ The "You're My Son" song site, rebuilt from the old WordPress (Voxel + Elementor
 on Cloudflare Pages, the same way SeekandKnock.com runs.
 
 - `public/` — the pages, images, and the paid download files (`public/downloads/`).
-- `functions/api/checkout.js` — starts Stripe Checkout for the song ($0.99), Bronze Supporter ($4.99), dad hat ($19) or tee ($14).
+- `functions/api/checkout.js` — starts Stripe Checkout for the song ($0.99), Bronze ($4.99), Silver ($14.99, tee), Gold ($24.99, hat) supporters, dad hat ($19) or tee ($14).
 - `functions/api/order.js` — the thank-you page gets signed download links here (only for paid orders; links last 7 days).
-- `functions/api/patrons.js` — the Patrons page lists Bronze Supporter names straight from paid Stripe orders.
+- `functions/api/patrons.js` — the Patrons page lists Bronze, Silver and Gold Supporter names straight from paid Stripe orders.
 - `functions/downloads/_middleware.js` — files in `/downloads` are only served with a valid signed link.
 - `wrangler.toml` — prices and shipping. Changing a price here changes both the page and checkout.
 

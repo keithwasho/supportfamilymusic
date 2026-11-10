@@ -14,10 +14,11 @@
 <body>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="/" aria-label="SupportFamilyMusic.com home"><img src="/img/logo-small.webp" alt="" width="56" height="56"><span class="brand-text"><span class="brand-name">Support Family Music</span><span class="brand-url">SupportFamilyMusic.com</span></span></a>
+      <a class="brand" href="/" aria-label="SupportFamilyMusic.com home"><img src="/img/youre-my-son-logo.webp" alt="You're My Son, Psalm 2:7 logo" width="56" height="56"><span class="brand-text"><span class="brand-name">Support Family Music</span><span class="brand-url">SupportFamilyMusic.com</span></span></a>
       <nav class="nav">
         <a href="/#song">The Song</a>
         <a href="/#why">Why</a>
+        <a href="/#more-songs">More Songs</a>
         <a href="/patrons">Patrons</a>
         <a class="cta" href="/#support">Support</a>
       </nav>
@@ -28,14 +29,22 @@
       <div class="panel">
         <h1>Patron Supporters</h1>
         <p>Thank you to everyone helping share "You're My Son" with families everywhere.</p>
-        <ul class="patron-list" id="patrons"></ul>
-        <p id="patrons-empty" hidden>Be the first name on this page. <a href="/#support">Become a Bronze Supporter</a>.</p>
-        <p style="margin-top:28px"><a class="btn" href="/#support">Become a Patron</a></p>
+        <div id="patrons"></div>
+        <p id="patrons-empty" hidden>Be the first name on this page. <a href="/#patron">Become a patron</a>.</p>
+        <p style="margin-top:28px"><a class="btn" href="/#patron">Become a Patron</a></p>
       </div>
       <script>
         fetch("/api/patrons").then(function (r) { return r.json(); }).then(function (d) {
-          var list = document.getElementById("patrons");
-          (d.patrons || []).forEach(function (n) { var li = document.createElement("li"); li.textContent = n; list.appendChild(li); });
+          var box = document.getElementById("patrons");
+          ["Gold", "Silver", "Bronze"].forEach(function (tier) {
+            var names = (d.patrons || []).filter(function (p) { return p.tier === tier; });
+            if (!names.length) return;
+            var sec = document.createElement("section"); sec.className = "patron-tier";
+            var h = document.createElement("h2"); h.textContent = tier + " Supporters"; sec.appendChild(h);
+            var ul = document.createElement("ul"); ul.className = "patron-list";
+            names.forEach(function (p) { var li = document.createElement("li"); li.textContent = p.name; ul.appendChild(li); });
+            sec.appendChild(ul); box.appendChild(sec);
+          });
           if (!(d.patrons || []).length) document.getElementById("patrons-empty").hidden = false;
         }).catch(function () { document.getElementById("patrons-empty").hidden = false; });
       </script>
@@ -43,7 +52,7 @@
   </main>
   <footer class="site-footer">
     <div class="wrap">
-      <div>© <span id="year">2026</span> Support Family Music · "You're My Son" by Keith Daniel Washo<br><small>2% of proceeds go to the Society of Saint Vincent de Paul.</small></div>
+      <div>© <span id="year">2026</span> Support Family Music · "You're My Son" by Keith Daniel Washo · A Song Celebrating Parents &amp; Sons Everywhere<br><small>2% of proceeds go to the Society of Saint Vincent de Paul.</small></div>
       <div><a href="/patrons">Patrons</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
     </div>
   </footer>
