@@ -1,5 +1,7 @@
 import { products, cents, json, siteUrl, stripe, stripeKeyProblem } from "../../lib/shop.js";
 
+const BRAND_NAME = "Support Family Music";
+
 // Starts a Stripe Checkout for one item: song, bronze, silver, gold, hat or tee.
 export async function onRequestPost({ request, env }) {
   const body = await request.json().catch(() => ({}));
@@ -68,8 +70,27 @@ export async function onRequestPost({ request, env }) {
     ];
   }
 
+  // Show Support Family Music (not the Stripe account's own business name) on the checkout page.
+  // If Stripe rejects the logo or the whole setting, fall back step by step so checkout always works.
+  const logo = { type: "url", url: `${site}/img/checkout-logo.png` };
+  const brandingTries = [
+    { display_name: BRAND_NAME, logo, icon: logo },
+    { display_name: BRAND_NAME },
+    null,
+  ];
+
   try {
-    const session = await stripe(env, "POST", "checkout/sessions", params);
+    let session;
+    for (const [i, branding] of brandingTries.entries()) {
+      try {
+        session = await stripe(env, "POST", "checkout/sessions", branding ? { ...params, branding_settings: branding } : params);
+        break;
+      } catch (err) {
+        const last = i === brandingTries.length - 1;
+        if (last || !(err.status === 400 || err.code === "parameter_unknown" || err.code === "parameter_invalid_empty")) throw err;
+        console.warn(`Checkout branding try ${i + 1} rejected: ${err.message}`);
+      }
+    }
     return json({ url: session.url });
   } catch (err) {
     console.error(err);
