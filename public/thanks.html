@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thank you | Support Family Music</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@600;700;800&family=Wix+Madefor+Text:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/img/logo-small.webp" alt="" width="44" height="44"><span>Support Family Music</span></a>
+      <nav class="nav">
+        <a href="/#song">The Song</a>
+        <a href="/#why">Why</a>
+        <a href="/patrons">Patrons</a>
+        <a class="cta" href="/#support">Support</a>
+      </nav>
+    </div>
+  </header>
+  <main class="page">
+    <div class="wrap">
+      <div class="panel">
+        <h1 id="t-title">Thank you!</h1>
+        <p id="t-msg">Loading your order…</p>
+        <ul class="downloads" id="t-downloads"></ul>
+        <p id="t-note" hidden>Bookmark this page: these links work for 7 days, and opening this page again gives you fresh ones. Stripe has also emailed your receipt.</p>
+        <p><a href="/">Back to the home page</a></p>
+      </div>
+      <script>
+        (function () {
+          var id = new URLSearchParams(location.search).get("session_id");
+          var msg = document.getElementById("t-msg");
+          if (!id) { msg.textContent = "We couldn't find an order on this link."; return; }
+          fetch("/api/order?session_id=" + encodeURIComponent(id)).then(function (r) { return r.json(); }).then(function (d) {
+            if (d.error) { msg.textContent = d.error; return; }
+            var what = d.item + (d.size ? " (size " + d.size + ")" : "");
+            msg.textContent = "Your order for " + what + " is confirmed." +
+              (d.shipped ? " We'll ship it to the address you gave at checkout and email you when it's on the way." : "") +
+              " Here are your downloads:";
+            var ul = document.getElementById("t-downloads");
+            d.downloads.forEach(function (f) {
+              var li = document.createElement("li"), a = document.createElement("a");
+              a.href = f.url; a.textContent = f.name;
+              var s = document.createElement("span"); s.textContent = "Download"; a.appendChild(s);
+              li.appendChild(a); ul.appendChild(li);
+            });
+            document.getElementById("t-note").hidden = false;
+          }).catch(function () { msg.textContent = "Something went wrong loading your order. Please refresh this page."; });
+        })();
+      </script>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>© <span id="year">2026</span> Support Family Music · "You're My Son" by Keith Daniel Washo</div>
+      <div><a href="/patrons">Patrons</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+    </div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

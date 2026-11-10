@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /downloads/
+Disallow: /thanks
+Sitemap: https://supportfamilymusic.com/sitemap.xml

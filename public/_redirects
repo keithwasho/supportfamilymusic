@@ -1,0 +1,6 @@
+/about /#why 301
+/about/ /#why 301
+/patrons/ /patrons 301
+/privacy-policy-2/ /privacy 301
+/terms-conditions/ /terms 301
+/rewards/* /#support 301

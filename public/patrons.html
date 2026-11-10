@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patron Supporters | Support Family Music</title>
+  <meta name="description" content="The patrons supporting the song You're My Son.">
+  <link rel="icon" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@600;700;800&family=Wix+Madefor+Text:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/img/logo-small.webp" alt="" width="44" height="44"><span>Support Family Music</span></a>
+      <nav class="nav">
+        <a href="/#song">The Song</a>
+        <a href="/#why">Why</a>
+        <a href="/patrons">Patrons</a>
+        <a class="cta" href="/#support">Support</a>
+      </nav>
+    </div>
+  </header>
+  <main class="page">
+    <div class="wrap">
+      <div class="panel">
+        <h1>Patron Supporters</h1>
+        <p>Thank you to everyone helping share "You're My Son" with families everywhere.</p>
+        <ul class="patron-list" id="patrons"></ul>
+        <p id="patrons-empty" hidden>Be the first name on this page. <a href="/#support">Become a Bronze Supporter</a>.</p>
+        <p style="margin-top:28px"><a class="btn" href="/#support">Become a Patron</a></p>
+      </div>
+      <script>
+        fetch("/api/patrons").then(function (r) { return r.json(); }).then(function (d) {
+          var list = document.getElementById("patrons");
+          (d.patrons || []).forEach(function (n) { var li = document.createElement("li"); li.textContent = n; list.appendChild(li); });
+          if (!(d.patrons || []).length) document.getElementById("patrons-empty").hidden = false;
+        }).catch(function () { document.getElementById("patrons-empty").hidden = false; });
+      </script>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>© <span id="year">2026</span> Support Family Music · "You're My Son" by Keith Daniel Washo</div>
+      <div><a href="/patrons">Patrons</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+    </div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

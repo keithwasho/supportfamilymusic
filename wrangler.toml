@@ -1,0 +1,16 @@
+# Cloudflare Pages settings for SupportFamilyMusic.com.
+# Secrets (like STRIPE_SECRET_KEY) are added in the Cloudflare dashboard, never here.
+name = "supportfamilymusic"   # must match the Cloudflare Pages project name
+pages_build_output_dir = "public"
+compatibility_date = "2025-09-01"
+
+[vars]
+# These are the real prices charged at checkout (Stripe inline prices, no Stripe products needed).
+SONG_PRICE_USD = "0.99"
+BRONZE_PRICE_USD = "4.99"
+HAT_PRICE_USD = "19.00"
+TEE_PRICE_USD = "15.50"
+SHIPPING_USD = "5.99"      # flat US shipping for the hat and tee; "0" shows "Free US shipping"
+
+# Comma-separated patron names to hide from the Patrons page (e.g. "Test Name, Someone").
+HIDDEN_PATRONS = ""
