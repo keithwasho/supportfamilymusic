@@ -29,6 +29,15 @@
       '?autoplay=1&rel=0" title="You\'re My Son" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
   });
 
+  // More songs: each video loads from YouTube only when clicked.
+  document.querySelectorAll("[data-yt]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (b.querySelector("iframe")) return;
+      b.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + b.getAttribute("data-yt") +
+        '?autoplay=1&rel=0" title="' + b.getAttribute("aria-label").replace("Play ", "") + '" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    });
+  });
+
   // Product photo galleries.
   document.querySelectorAll("[data-gallery]").forEach(function (card) {
     var main = card.querySelector("[data-main]");
