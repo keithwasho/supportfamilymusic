@@ -14,6 +14,7 @@ on Cloudflare Pages, the same way SeekandKnock.com runs.
 
 1. Workers & Pages → Create → Pages → Connect to Git → pick `supportfamilymusic`.
 2. Build command: leave empty. Build output directory: `public`. Save and Deploy.
+   (New dashboard: Create application → "Looking to deploy Pages? Get started" → Import an existing Git repository.)
 3. Settings → Variables and Secrets → add `STRIPE_SECRET_KEY` (type Secret) with the same Stripe key SeekandKnock uses.
 4. Custom domains → add `supportfamilymusic.com` and `www.supportfamilymusic.com`.
 
